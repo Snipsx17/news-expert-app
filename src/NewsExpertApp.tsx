@@ -1,7 +1,10 @@
 import { AppLogo } from './components/AppLogo';
 import { SearchNews } from './components/SearchNews';
+import { useFetchNews } from './hooks/useFetchNews';
 
 export const NewsExpertApp = () => {
+  useFetchNews('motos');
+
   return (
     <>
       {/* logo */}
