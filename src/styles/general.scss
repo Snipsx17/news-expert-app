@@ -1,0 +1,30 @@
+:root {
+  --primary-blue: #00b8ff;
+  --strong-purple: #402e7a;
+  --light-purple: #a48cf5;
+  --light-blue: #51d5ff;
+  --black: #2b2727;
+  --white: #faf2f2;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+
+  &:before,
+  &:after {
+    box-sizing: inherit;
+  }
+
+  html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+  }
+
+  body {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.6rem;
+    background-color: var(--white);
+  }
+}
