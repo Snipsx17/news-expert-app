@@ -18,15 +18,14 @@ export const useFetchNews = async (searchTerm: string, fromDate?: string) => {
   useEffect(() => {
     try {
       setIsLoading(true);
-      getNews(searchTerm, fromDate).then((newsArticle) => {
-        setNewsArticles(newsArticle);
+      getNews(searchTerm, fromDate).then((data) => {
+        setNewsArticles(data);
         setError(false);
         setIsLoading(false);
-        console.log(newsArticles);
-        return { newsArticles, isLoading, error };
       });
     } catch (error) {
       setError(true);
     }
-  }, [searchTerm]);
+  }, [searchTerm, fromDate]);
+  return { newsArticles, isLoading, error };
 };

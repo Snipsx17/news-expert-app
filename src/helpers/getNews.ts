@@ -7,17 +7,17 @@ type Article = {
   urlToImage: string;
 };
 
-export const getNews = async (searchTerm?: string, fromDate?: string) => {
-  // const requestDate = fromDate ? fromDate : new Date().toLocaleDateString();
+export const getNews = async (searchTerm: string, fromDate?: string) => {
+  const requestDate = fromDate
+    ? fromDate
+    : new Date().toLocaleDateString().split('/').join('-');
 
-  // const url = `https://newsapi.org/v2/everything?q=${searchTerm}&from=${requestDate}&sortBy=popularity&apiKey=${
-  //       import.meta.env.VITE_API_KEY
-  //     }`
+  const url = `https://newsapi.org/v2/everything?q=${searchTerm}&from=${requestDate}&sortBy=popularity&apiKey=${
+    import.meta.env.VITE_API_KEY
+  }`;
 
   try {
-    const request = await fetch(
-      'https://667884be0bd45250561eef93.mockapi.io/news'
-    );
+    const request = await fetch(url);
 
     if (!request.ok) {
       throw new Error(request.statusText);

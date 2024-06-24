@@ -1,9 +1,19 @@
+import { useState } from 'react';
 import { AppLogo } from './components/AppLogo';
 import { SearchNews } from './components/SearchNews';
-import { useFetchNews } from './hooks/useFetchNews';
+
+type searchParameters = { searchParameter: string; fromDate: string };
 
 export const NewsExpertApp = () => {
-  useFetchNews('motos');
+  const [searchData, setSearchData] = useState<searchParameters>({
+    searchParameter: '',
+    fromDate: '',
+  });
+
+  const setSearchParameters = (searchParams: searchParameters) => {
+    setSearchData(searchParams);
+  };
+  console.log(searchData);
 
   return (
     <>
@@ -11,7 +21,10 @@ export const NewsExpertApp = () => {
       <AppLogo />
 
       {/* search bar with date selector */}
-      <SearchNews subTitle="Type to find news" />
+      <SearchNews
+        subTitle="Type to find news"
+        setSearchParameters={setSearchParameters}
+      />
 
       {/* news grid */}
 

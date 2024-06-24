@@ -5,9 +5,13 @@ import { FormInput } from './FormInput';
 
 type Props = {
   subTitle?: string;
+  setSearchParameters: (searchData: {
+    searchParameter: string;
+    fromDate: string;
+  }) => void;
 };
 
-export const SearchNews = ({ subTitle }: Props) => {
+export const SearchNews = ({ subTitle, setSearchParameters }: Props) => {
   const [dateValue, setDateValue] = useState<string>('');
   const [inputValue, setInputValue] = useState<string>('');
 
@@ -18,10 +22,18 @@ export const SearchNews = ({ subTitle }: Props) => {
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
-  // search bar with date selector
+
+  const onSubmitForm = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSearchParameters({
+      searchParameter: inputValue,
+      fromDate: dateValue,
+    });
+  };
+
   return (
     <>
-      <form>
+      <form onSubmit={onSubmitForm}>
         <div className="search-bar">
           <FormInput
             type="text"
