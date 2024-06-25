@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { AppLogo } from './components/AppLogo';
 import { SearchNews } from './components/SearchNews';
+import { GridNews } from './components/GridNews';
 
 type searchParameters = { searchParameter: string; fromDate: string };
 
@@ -13,7 +14,6 @@ export const NewsExpertApp = () => {
   const setSearchParameters = (searchParams: searchParameters) => {
     setSearchData(searchParams);
   };
-  console.log(searchData);
 
   return (
     <>
@@ -27,6 +27,7 @@ export const NewsExpertApp = () => {
       />
 
       {/* news grid */}
+      <GridNews searchData={searchData} />
 
       {/* footer */}
     </>

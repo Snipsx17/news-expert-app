@@ -10,22 +10,29 @@ type newsArticle = {
   urlToImage: string;
 };
 
-export const useFetchNews = async (searchTerm: string, fromDate?: string) => {
+type searchParameters = { searchParameter: string; fromDate: string };
+
+export const useFetchNews = ({
+  searchParameter,
+  fromDate,
+}: searchParameters) => {
   const [newsArticles, setNewsArticles] = useState<newsArticle[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
-    try {
+    const getNewsArticle = async () => {
       setIsLoading(true);
-      getNews(searchTerm, fromDate).then((data) => {
-        setNewsArticles(data);
-        setError(false);
-        setIsLoading(false);
-      });
+      const news = await getNews(searchParameter, fromDate);
+      setNewsArticles(news);
+      setIsLoading(false);
+    };
+    try {
+      getNewsArticle();
     } catch (error) {
       setError(true);
     }
-  }, [searchTerm, fromDate]);
+  }, [searchParameter, fromDate]);
+
   return { newsArticles, isLoading, error };
 };

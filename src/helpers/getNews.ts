@@ -7,6 +7,15 @@ type Article = {
   urlToImage: string;
 };
 
+type newsArticle = {
+  author: string;
+  description: string;
+  source: string;
+  title: string;
+  url: string;
+  urlToImage: string;
+};
+
 export const getNews = async (searchTerm: string, fromDate?: string) => {
   const requestDate = fromDate
     ? fromDate
@@ -23,9 +32,9 @@ export const getNews = async (searchTerm: string, fromDate?: string) => {
       throw new Error(request.statusText);
     }
 
-    const data = await request.json();
+    const { articles } = await request.json();
 
-    const formattedArticle = data.map(
+    const formattedArticle: newsArticle[] = articles.map(
       ({ author, description, source, title, url, urlToImage }: Article) => ({
         author,
         description,
@@ -39,9 +48,9 @@ export const getNews = async (searchTerm: string, fromDate?: string) => {
     return formattedArticle;
   } catch (error) {
     if (error instanceof Error) {
-      throw error;
+      return error;
     } else {
-      throw new Error('An unknown error occurred');
+      return new Error('An unknown error occurred');
     }
   }
 };
