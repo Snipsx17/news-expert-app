@@ -27,7 +27,7 @@ export const NewsExpertApp = () => {
       />
 
       {/* news grid */}
-      <GridNews searchData={searchData} />
+      <GridNews {...searchData} />
 
       {/* footer */}
     </>

@@ -1,3 +1,5 @@
+import placeHolder from '../assets/no-image.jpeg';
+
 type newsData = {
   author: string;
   description: string;
@@ -10,13 +12,23 @@ type newsData = {
 export const NewsCard = (data: newsData) => {
   const { author, description, source, title, url, urlToImage } = data;
   return (
-    <div>
-      <a href={url}>
-        <img src={urlToImage} alt={title} />
+    <div className="news-grid-item">
+      <a href={url} target="_blank">
+        <div className="news-img">
+          <img src={urlToImage || placeHolder} alt={title} />
+        </div>
         <h3>{title}</h3>
         <p>{description}</p>
-        <span>Source:{source}</span>
-        <span>Author:{author}</span>
+        <footer>
+          <span>
+            <strong>Source:</strong>
+            {source}
+          </span>
+          <span>
+            <strong>Author:</strong>
+            {author}
+          </span>
+        </footer>
       </a>
     </div>
   );

@@ -22,16 +22,18 @@ export const useFetchNews = ({
 
   useEffect(() => {
     const getNewsArticle = async () => {
-      setIsLoading(true);
-      const news = await getNews(searchParameter, fromDate);
-      setNewsArticles(news);
-      setIsLoading(false);
+      try {
+        setIsLoading(true);
+        setError(false);
+        const news = await getNews(searchParameter, fromDate);
+        setNewsArticles(news);
+        setIsLoading(false);
+      } catch (error) {
+        setError(true);
+      }
     };
-    try {
-      getNewsArticle();
-    } catch (error) {
-      setError(true);
-    }
+
+    getNewsArticle();
   }, [searchParameter, fromDate]);
 
   return { newsArticles, isLoading, error };

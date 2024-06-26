@@ -21,7 +21,9 @@ export const getNews = async (searchTerm: string, fromDate?: string) => {
     ? fromDate
     : new Date().toLocaleDateString().split('/').join('-');
 
-  const url = `https://newsapi.org/v2/everything?q=${searchTerm}&from=${requestDate}&sortBy=popularity&apiKey=${
+  const url = `https://newsapi.org/v2/everything?q=${
+    searchTerm || 'today news'
+  }&from=${requestDate}&sortBy=popularity&apiKey=${
     import.meta.env.VITE_API_KEY
   }`;
 
@@ -48,7 +50,7 @@ export const getNews = async (searchTerm: string, fromDate?: string) => {
     return formattedArticle;
   } catch (error) {
     if (error instanceof Error) {
-      return error;
+      throw error;
     } else {
       return new Error('An unknown error occurred');
     }

@@ -1,5 +1,5 @@
 import { useFetchNews } from '../hooks/useFetchNews';
-import { NewsCard } from './newsCard';
+import { NewsCard } from './NewsCard';
 
 type newsData = {
   author: string;
@@ -10,29 +10,32 @@ type newsData = {
   urlToImage: string;
 };
 
-export const GridNews = (searchParameters) => {
-  //   const { newsArticles } = useFetchNews(searchParameters);
-  const newsArticles = [
-    {
-      author: 'Uberth',
-      description:
-        'The group told the BBC that it still required a commitment to a permanent ceasefire.',
-      source: 'BBC News',
-      title:
-        'Hamas seeks commitment to permanent ceasefire in Gaza proposal response',
-      url: 'https://www.bbc.com/news/articles/cv225l8l7jzo',
-      urlToImage: 'https://ichef.bbci.co.uk/news/1024/branded',
-    },
-  ];
+type searchParameters = { searchParameter: string; fromDate: string };
+
+export const GridNews = (searchData: searchParameters) => {
+  const { newsArticles, error, isLoading } = useFetchNews(searchData);
 
   return (
-    <>
-      <h2>News</h2>
-      <ol>
-        {newsArticles.map((newsItem: newsData) => (
-          <NewsCard {...newsItem} />
-        ))}
-      </ol>
-    </>
+    <div className="news-container">
+      <h2 className="news-grid-title">News</h2>
+      {error ? (
+        <>
+          <p>
+            Upss... An error ocurred while try to get news, try again later.
+          </p>
+          <span></span>
+        </>
+      ) : (
+        <div className="news-grid">
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : (
+            newsArticles.map((newsItem: newsData) => (
+              <NewsCard key={self.crypto.randomUUID()} {...newsItem} />
+            ))
+          )}
+        </div>
+      )}
+    </div>
   );
 };
